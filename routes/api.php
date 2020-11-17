@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResources([
+     'users' => UserController::class 
+    //'users' => 'UserController'
+]);
+
+Route::get('profile', [UserController::class, 'profile'])->name('profile');
+Route::put('profile', [UserController::class, 'updateprofile'])->name('updateprofile');
+ 

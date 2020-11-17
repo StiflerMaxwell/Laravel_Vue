@@ -10,10 +10,10 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.19",
+        "axios": "^0.19.2",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
-        "jquery": "^3.2",
+        "jquery": "^3.5.1",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
         "popper.js": "^1.12",
@@ -25,6 +25,17 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
-        "admin-lte": "^3.0.5"
+        "@sweetalert2/theme-borderless": "^4.0.1",
+        "@sweetalert2/theme-bulma": "^4.0.1",
+        "@sweetalert2/theme-material-ui": "^4.0.1",
+        "@sweetalert2/theme-wordpress-admin": "^4.0.1",
+        "@sweetalert2/themes": "^4.0.1",
+        "admin-lte": "^3.0.5",
+        "moment": "^2.29.1",
+        "sweetalert2": "^10.10.1",
+        "vform": "^1.0.1",
+        "vue-progressbar": "^0.7.5",
+        "vue-router": "^3.4.9",
+        "vuejs-datatable": "^2.0.0-alpha.7"
     }
 }
