@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-         <div class="row mt-5">
+         <div class="row mt-5" v-if="$gate.isAdmin()">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
@@ -53,7 +53,9 @@
           </div>
         </div>
 
-
+        <div v-if="!$gate.isAdmin()">
+            <not-found></not-found>
+        </div>
         
         <!-- creat user form -->
         <form @submit.prevent="editmode ? updateUser() : createUser()">
@@ -149,9 +151,9 @@
             loadUsers()
             {
 
-
+                if(this.$gate.isAdmin()){
                 axios.get("api/users").then(({ data }) => (this.users = data.data));
-
+                }
 
             },
 

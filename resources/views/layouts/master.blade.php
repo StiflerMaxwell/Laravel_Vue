@@ -54,27 +54,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </router-link>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+
+
+    
+     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <router-link to="/profile"  class="d-flex">    
         <div class="image">
-          <img src="./img/man.svg" class="img-circle elevation-2" alt="User Image">
+          {{-- <img src="./img/man.svg" class="img-circle elevation-2 mt-2" alt="User Image"> --}}
+         <img src="./img/profile/{{ Auth::user()->photo }}"  class="img-circle elevation-2 mt-2" alt="User Image"/>
         </div>
-        <div class="info">
-            
+        <div class="info">           
             {{ Auth::user()->name }}
             <span class="d-block  ">
               {{ Ucfirst(Auth::user()->type) }}
             </span>
-
-          
         </div>
+      </router-link>
       </div>
 
+
+
+     
         <!-- Sidebar Menu -->
       @include('layouts.side-menu')
       <!-- /.sidebar-menu -->
-    </div>
+    </div>  
     <!-- /.sidebar -->
   </aside>
 

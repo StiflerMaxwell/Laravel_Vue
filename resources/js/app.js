@@ -32,12 +32,13 @@ const router = new VueRouter({
 // Routes End
 
 
+ 
 import VueProgressBar from 'vue-progressbar'
 
 Vue.use(VueProgressBar, {
-  color: 'rgb(143, 255, 199)',
+  color: '#42b883',
   failedColor: 'red',
-  height: '3px'
+  height: '4px'
 })
 
 
@@ -68,6 +69,12 @@ window.Swal = Swal;
 window.Toast = Toast;
 
 
+
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
+
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -82,6 +89,7 @@ window.Toast = Toast;
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('post-component', require('./components/Post.vue').default);
+ 
  
 
 Vue.component(
@@ -100,22 +108,39 @@ Vue.component(
 );
 
 
+ 
+
 Vue.component('dashboard', require('./components/Dashboard.vue'));
+ 
+
 Vue.component(
     'not-found',
     require('./components/NotFound.vue').default
 );
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+window.Fire =  new Vue();
+
+
 const app = new Vue({
     el: '#app',
-    router
-    
-});
+    router,
+    data:{
+        search: ''
+    },
+    methods:{
+        searchit: _.debounce(() => {
+            Fire.$emit('searching');
+        },1000),
 
+        printme() {
+            window.print();
+        }
+    }
+});
 

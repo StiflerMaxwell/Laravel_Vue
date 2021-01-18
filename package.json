@@ -12,7 +12,7 @@
     "devDependencies": {
         "axios": "^0.19.2",
         "bootstrap": "^4.0.0",
-        "cross-env": "^7.0",
+        "cross-env": "^7.0.2",
         "jquery": "^3.5.1",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
@@ -31,6 +31,7 @@
         "@sweetalert2/theme-wordpress-admin": "^4.0.1",
         "@sweetalert2/themes": "^4.0.1",
         "admin-lte": "^3.0.5",
+        "laravel-vue-pagination": "^2.3.1",
         "moment": "^2.29.1",
         "sweetalert2": "^10.10.1",
         "vform": "^1.0.1",

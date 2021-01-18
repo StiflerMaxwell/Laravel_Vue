@@ -25,4 +25,4 @@ Route::apiResources([
 
 Route::get('profile', [UserController::class, 'profile'])->name('profile');
 Route::put('profile', [UserController::class, 'updateprofile'])->name('updateprofile');
- 
+Route::post('change-password', [UserController::class, 'changePassword'])->name('changePassword') ;

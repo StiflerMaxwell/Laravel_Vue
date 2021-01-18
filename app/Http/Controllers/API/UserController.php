@@ -27,6 +27,10 @@ class UserController extends Controller
 
     public function index()
     {
+
+
+        $this->authorize('isAdmin');
+
          return User::latest()->paginate(10);
          //$users = User::latest()->paginate(10);
     }
@@ -40,6 +44,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
+
+        $this->authorize('isAdmin');
 
         $this->validate($request,[
 
@@ -78,15 +84,93 @@ class UserController extends Controller
     public function profile()
     {
         //
+
+        $response = [
+            'success' => true,
+            'data'    => auth('api')->user(),
+            'message' => 'User Profile',
+        ];
+        return response()->json($response, 200);
+        
     }
 
 
 
 
-    public function UpdateProfile(Request $request, $id)
+    public function UpdateProfile(Request $request)
     {
-        //
+        $user = auth('api')->user();
+
+      
+        $this->validate($request,[
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
+            'password' => 'sometimes|required|min:6'
+        ]);
+
+
+        $currentPhoto = $user->photo;
+
+
+        if($request->photo != $currentPhoto){
+            //$name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+
+            $extension = explode('/', mime_content_type($request->photo))[1];
+            $name = time().'.'.$extension;
+
+             
+            \Image::make($request->photo)->save(public_path('img/profile/').$name);
+            $request->merge(['photo' => $name]);
+
+            $userPhoto = public_path('img/profile/').$currentPhoto;
+            if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+            }
+
+
+            $user->photo = $name;
+             $user->save();
+
+        }
+
+         
+        $user->update($request->all());
+        
+
+       
+
+        return ['message' => "Profile has been updated"];
+
+        /* $response = [
+            'success' => true,
+            'data'    => $user,
+            'message' => 'Profile has been updated',
+        ];
+        return response()->json($response, 200); */
     }
+
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\Users\Request  $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changePassword(Request $request)
+    {
+        User::find(auth('api')->user()->id)->update(['password' => Hash::make($request->new_password)]);
+
+        $response = [
+            'success' => true,
+            'data'    => [],
+            'message' => 'Password Has been updated',
+        ];
+        return response()->json($response, 200);
+    }
+
+
 
 
 
@@ -99,6 +183,10 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->authorize('isAdmin');
+
+        
          $user = User::findOrFail($id);
 
          $this->validate($request,[
@@ -122,6 +210,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
+        $this->authorize('isAdmin');
+
+
         $user = User::findOrFail($id);
         // delete the user
 

@@ -12,6 +12,9 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
+
+    use \Rackbeat\UIAvatars\HasAvatar;
+
     use HasApiTokens,HasFactory, Notifiable;
 
     /**
@@ -23,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'type',
+        'description',
         'password',
     ];
 
@@ -44,4 +48,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function getAvatar( $size = 64 ) {
+        return $this->getGravatar( $this->email, $size );
+      }
+
 }

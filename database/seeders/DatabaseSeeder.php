@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,8 +23,11 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Admin',
             'email' => 'admin@me.com',
+            'description' => 'This is the Admin account!',
             'password' => Hash::make('password'),
-            'type' => 'Admin'
+            'type' => 'Admin',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
 
